@@ -1,10 +1,10 @@
-import { DataTypes, Sequelize } from 'sequelize';
+import sequelize from 'sequelize';
 import { Column, DataType, Table, Model } from 'sequelize-typescript';
 
-interface ITripAttributes {
+export interface ITripAttributes {
   id?: string;
   distance?: string;
-  date?: number; //timestamp
+  date?: Date;
   start_address?: string;
   destination_address?: string;
 }
@@ -17,8 +17,8 @@ interface ITripAttributes {
 export default class Trip extends Model implements ITripAttributes {
   @Column({
     primaryKey: true,
-    type: DataTypes.STRING(36),
-    defaultValue: Sequelize.literal('uuid_generate_v4()'),
+    type: DataType.STRING(36),
+    defaultValue: sequelize.UUIDV4,
   })
   id?: string;
 
@@ -30,9 +30,9 @@ export default class Trip extends Model implements ITripAttributes {
 
   @Column({
     field: 'date',
-    type: DataType.STRING,
+    type: DataType.DATE,
   })
-  date?: number; //timestamp
+  date?: Date;
 
   @Column({
     field: 'start_address',

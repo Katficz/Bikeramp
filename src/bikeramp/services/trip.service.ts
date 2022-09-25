@@ -11,4 +11,13 @@ export class TripService {
   async findAll(): Promise<Trip[]> {
     return this.tripRepository.findAll<Trip>();
   }
+
+  async createOneTrip(createValues: {
+    distance: string;
+    date: Date;
+    start_address: string;
+    destination_address: string;
+  }): Promise<Trip> {
+    return await this.tripRepository.create(createValues);
+  }
 }
