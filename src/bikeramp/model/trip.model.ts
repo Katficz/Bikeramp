@@ -12,6 +12,7 @@ interface ITripAttributes {
 @Table({
   tableName: 'trip',
   schema: 'bikeramp',
+  timestamps: false,
 })
 export default class Trip extends Model implements ITripAttributes {
   @Column({
