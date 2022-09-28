@@ -1,14 +1,6 @@
 import sequelize from 'sequelize';
 import { Column, DataType, Table, Model } from 'sequelize-typescript';
-
-export interface ITripAttributes {
-  id?: string;
-  distance?: number;
-  date?: Date;
-  start_address?: string;
-  destination_address?: string;
-  price?: number;
-}
+import { ITripAttributes } from '../types/trip.types';
 
 @Table({
   tableName: 'trip',

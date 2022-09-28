@@ -11,6 +11,10 @@ import { Op } from 'sequelize';
 import { validateCreateBody } from '../helpers/bikeramp.validators';
 import { calculateTwoAddressesDistance } from '../helpers/calculateDistance.api';
 import { TripService } from '../services/trip.service';
+import {
+  IMonthlyStatsResponseBodyCell,
+  IWeeklyStatsResponseBody,
+} from '../types/trip.types';
 const moment = require('moment'); // using import causes CommonJS vs SystemJS problem
 
 @Controller('api/')
@@ -18,10 +22,7 @@ export class TripController {
   constructor(private readonly tripService: TripService) {}
 
   @Get('stats/weekly')
-  async getWeeklyStats(): Promise<{
-    total_distance: string;
-    total_price: string;
-  }> {
+  async getWeeklyStats(): Promise<IWeeklyStatsResponseBody> {
     const weekStart = moment().startOf('week').toDate();
     const weekEnd = moment().endOf('week');
     try {
@@ -52,14 +53,7 @@ export class TripController {
   }
 
   @Get('stats/monthly')
-  async getMonthlyStats(): Promise<
-    Array<{
-      day: string;
-      total_distance: string;
-      avg_ride: string;
-      avg_price: string;
-    }>
-  > {
+  async getMonthlyStats(): Promise<Array<IMonthlyStatsResponseBodyCell>> {
     const weekStart = moment().startOf('month').toDate();
     const weekEnd = moment().endOf('month');
     try {
@@ -77,7 +71,7 @@ export class TripController {
           [sequelize.fn('avg', sequelize.col('price')), 'avg_price'],
         ],
       });
-      return downloadedData.map((rideDay) => {
+      return downloadedData.map((rideDay): IMonthlyStatsResponseBodyCell => {
         return {
           day: moment(rideDay.dataValues.date ?? '').format('MMM, Do'),
           total_distance: `${rideDay.dataValues.total_distance ?? 0}km`,
