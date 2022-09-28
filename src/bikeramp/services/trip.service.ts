@@ -8,15 +8,16 @@ export class TripService {
     private tripRepository: typeof Trip,
   ) {}
 
-  async findAll(): Promise<Trip[]> {
-    return this.tripRepository.findAll<Trip>();
+  async findAll(options?: object): Promise<Trip[]> {
+    return this.tripRepository.findAll<Trip>(options || {});
   }
 
   async createOneTrip(createValues: {
-    distance: string;
+    distance: number;
     date: Date;
     start_address: string;
     destination_address: string;
+    price: number;
   }): Promise<Trip> {
     return await this.tripRepository.create(createValues);
   }

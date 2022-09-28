@@ -3,10 +3,11 @@ import { Column, DataType, Table, Model } from 'sequelize-typescript';
 
 export interface ITripAttributes {
   id?: string;
-  distance?: string;
+  distance?: number;
   date?: Date;
   start_address?: string;
   destination_address?: string;
+  price?: number;
 }
 
 @Table({
@@ -24,9 +25,9 @@ export default class Trip extends Model implements ITripAttributes {
 
   @Column({
     field: 'distance',
-    type: DataType.STRING,
+    type: DataType.NUMBER,
   })
-  distance?: string;
+  distance?: number;
 
   @Column({
     field: 'date',
@@ -45,4 +46,10 @@ export default class Trip extends Model implements ITripAttributes {
     type: DataType.STRING,
   })
   destination_address?: string;
+
+  @Column({
+    field: 'price',
+    type: DataType.NUMBER,
+  })
+  price?: number;
 }
