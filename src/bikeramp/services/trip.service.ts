@@ -12,13 +12,16 @@ export class TripService {
     return this.tripRepository.findAll<Trip>(options || {});
   }
 
-  async createOneTrip(createValues: {
-    distance: number;
-    date: Date;
-    start_address: string;
-    destination_address: string;
-    price: number;
-  }): Promise<Trip> {
-    return await this.tripRepository.create(createValues);
+  async createOneTrip(
+    createValues: {
+      distance: number;
+      date: Date;
+      start_address: string;
+      destination_address: string;
+      price: number;
+    },
+    options?: object,
+  ): Promise<Trip> {
+    return await this.tripRepository.create(createValues, options || {});
   }
 }
