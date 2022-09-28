@@ -106,6 +106,8 @@ export class TripController {
       start_address,
       destination_address,
     );
+    if (travelDistance == null)
+      throw new InternalServerErrorException('Google API Error');
 
     try {
       const createdTrip = await this.tripService.createOneTrip({
