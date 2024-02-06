@@ -8,3 +8,4 @@ async function bootstrap() {
 bootstrap();
 
 // dupa
+//dupa 2
